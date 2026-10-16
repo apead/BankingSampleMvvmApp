@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<views:BaseView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:views="clr-namespace:BankingApp.Views"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:BankingApp.ViewModels"
+             xmlns:models="clr-namespace:BankingApp.Models"
+             x:DataType="vm:BankAccountTransactionViewModel"
+             x:Class="BankingApp.Views.BankAccountTransactionView"
+             Title="Future Lab Banking"
+             BackgroundColor="#F4F6FB">
+    <Grid RowDefinitions="Auto,*,Auto"
+          Padding="20,18">
+        <VerticalStackLayout Grid.Row="0"
+                             Spacing="16"
+                             Margin="0,0,0,14">
+            <Border StrokeThickness="0"
+                    StrokeShape="RoundRectangle 20"
+                    Padding="22,20">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="#0F172A" Offset="0.0" />
+                        <GradientStop Color="#1E293B" Offset="0.5" />
+                        <GradientStop Color="#334155" Offset="1.0" />
+                    </LinearGradientBrush>
+                </Border.Background>
+
+                <VerticalStackLayout Spacing="16">
+                    <Grid ColumnDefinitions="*,Auto"
+                          VerticalOptions="Center">
+                        <HorizontalStackLayout Spacing="8"
+                                               VerticalOptions="Center">
+                            <Label Text="ACCOUNT DETAILS"
+                                   FontSize="11"
+                                   FontAttributes="Bold"
+                                   TextColor="#94A3B8"
+                                   CharacterSpacing="1.2"
+                                   VerticalOptions="Center" />
+                        </HorizontalStackLayout>
+
+                        <Border Grid.Column="1"
+                                BackgroundColor="#334155"
+                                StrokeThickness="0"
+                                StrokeShape="RoundRectangle 10"
+                                Padding="10,4">
+                            <Label Text="{Binding Transactions.Count, StringFormat='{0} transactions'}"
+                                   FontSize="11"
+                                   FontAttributes="Bold"
+                                   TextColor="#F1F5F9" />
+                        </Border>
+                    </Grid>
+
+                    <Grid ColumnDefinitions="*,Auto"
+                          ColumnSpacing="16"
+                          VerticalOptions="Center">
+                        <VerticalStackLayout Spacing="4">
+                            <Label Text="ACCOUNT NUMBER"
+                                   FontSize="10"
+                                   FontAttributes="Bold"
+                                   TextColor="#94A3B8"
+                                   CharacterSpacing="1.0" />
+                            <Label Text="{Binding BankAccount.AccountNumber}"
+                                   FontSize="18"
+                                   FontAttributes="Bold"
+                                   TextColor="White"
+                                   CharacterSpacing="1.5"
+                                   LineBreakMode="TailTruncation" />
+                        </VerticalStackLayout>
+                        <VerticalStackLayout Grid.Column="1"
+                                             Spacing="4"
+                                             HorizontalOptions="End">
+                            <Label Text="CURRENT BALANCE"
+                                   FontSize="10"
+                                   FontAttributes="Bold"
+                                   TextColor="#94A3B8"
+                                   CharacterSpacing="1.0"
+                                   HorizontalTextAlignment="End" />
+                            <Label Text="{Binding BankAccount.Balance, StringFormat='{0:C2}'}"
+                                   FontSize="22"
+                                   FontAttributes="Bold"
+                                   TextColor="#34D399"
+                                   HorizontalTextAlignment="End"
+                                   LineBreakMode="TailTruncation" />
+                        </VerticalStackLayout>
+                    </Grid>
+
+                    <BoxView HeightRequest="1"
+                             Color="#475569"
+                             Opacity="0.4" />
+
+                    <VerticalStackLayout Spacing="3">
+                        <Label Text="PRIMARY ACCOUNT HOLDER"
+                               FontSize="9"
+                               FontAttributes="Bold"
+                               TextColor="#94A3B8"
+                               CharacterSpacing="1.0" />
+                        <Label Text="{Binding AccountHolderName, TargetNullValue='Not provided'}"
+                               FontSize="14"
+                               FontAttributes="Bold"
+                               TextColor="#F8FAFC" />
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
+            </Border>
+
+            <Grid ColumnDefinitions="*,Auto"
+                  ColumnSpacing="12"
+                  Margin="4,2,4,0"
+                  VerticalOptions="Center">
+                <VerticalStackLayout Spacing="2">
+                    <Label Text="Recent Activity"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           TextColor="#0F172A" />
+                </VerticalStackLayout>
+            </Grid>
+        </VerticalStackLayout>
+
+        <CollectionView Grid.Row="1"
+                        ItemsSource="{Binding Transactions}"
+                        SelectionMode="None"
+                        ItemSizingStrategy="MeasureAllItems">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical"
+                                   ItemSpacing="10" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:Transaction">
+                    <Border BackgroundColor="White"
+                            Stroke="#E2E8F0"
+                            StrokeThickness="1"
+                            StrokeShape="RoundRectangle 16"
+                            Padding="16">
+                        <Grid ColumnDefinitions="*,Auto"
+                              ColumnSpacing="14"
+                              VerticalOptions="Center">
+                            <VerticalStackLayout Spacing="3"
+                                                 VerticalOptions="Center">
+                                <Label Text="{Binding TransactionTypeDescription}"
+                                       FontSize="12"
+                                       FontAttributes="Bold"
+                                       TextColor="#333333" />
+                                <Label Text="{Binding Reference, TargetNullValue='General Transaction'}"
+                                       FontSize="15"
+                                       FontAttributes="Bold"
+                                       TextColor="#0F172A"
+                                       LineBreakMode="TailTruncation" />
+                                <Label Text="{Binding TransactionDate, StringFormat='{0:MMM dd, yyyy • HH:mm}'}"
+                                       FontSize="12"
+                                       TextColor="#64748B" />
+                            </VerticalStackLayout>
+
+                            <VerticalStackLayout Grid.Column="1"
+                                                 HorizontalOptions="End"
+                                                 VerticalOptions="Center"
+                                                 Spacing="2">
+                                <Label Text="{Binding TransactionAmount, StringFormat='{0:C2}'}"
+                                       FontSize="16"
+                                       FontAttributes="Bold"
+                                       HorizontalTextAlignment="End"
+                                       TextColor="#0F172A" />
+                            </VerticalStackLayout>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+            <CollectionView.EmptyView>
+                <VerticalStackLayout Padding="24,48"
+                                     Spacing="8"
+                                     HorizontalOptions="Center"
+                                     VerticalOptions="Center">
+                    <Label Text="No transactions recorded"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           TextColor="#0F172A"
+                           HorizontalTextAlignment="Center" />
+                    <Label Text="Transactions will appear here once activity occurs."
+                           FontSize="14"
+                           TextColor="#64748B"
+                           HorizontalTextAlignment="Center" />
+                </VerticalStackLayout>
+            </CollectionView.EmptyView>
+        </CollectionView>
+        <Grid Grid.Row="2"
+              ColumnDefinitions="*,*"
+              ColumnSpacing="12"
+              Margin="0,16,0,0">
+            <Button Text="Make a Deposit"
+                    BackgroundColor="#047857"
+                    TextColor="White"
+                    FontSize="14"
+                    FontAttributes="Bold"
+                    CornerRadius="12"
+                    MinimumHeightRequest="48"
+                    Padding="10,12" Command="{Binding DepositCommand}" />
+            <Button Grid.Column="1"
+                    Text="Make a Withdrawl"
+                    BackgroundColor="#B91C1C"
+                    TextColor="White"
+                    FontSize="14"
+                    FontAttributes="Bold"
+                    CornerRadius="12"
+                    MinimumHeightRequest="48"
+                    Padding="10,12" Command="{Binding WithdrawlCommand}" />
+        </Grid>
+    </Grid>
+</views:BaseView>

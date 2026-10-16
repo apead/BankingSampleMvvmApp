@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<views:BaseView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:views="clr-namespace:BankingApp.Views"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:BankingApp.ViewModels"
+             xmlns:behaviors="clr-namespace:BankingApp.Views.Behaviors"
+             x:DataType="vm:TransactionRecordViewModel"
+             x:Class="BankingApp.Views.TransactionRecordView"
+             Title="Future Lab Banking"
+             BackgroundColor="#F4F6FB">
+    <views:BaseView.Resources>
+        <Style x:Key="TransactionInputBorderStyle" TargetType="Border">
+            <Setter Property="Stroke" Value="#E2E8F0" />
+            <Setter Property="StrokeThickness" Value="1" />
+            <Setter Property="StrokeShape" Value="RoundRectangle 10" />
+            <Setter Property="BackgroundColor" Value="#F8FAFC" />
+            <Setter Property="Padding" Value="10,2" />
+        </Style>
+        <Style x:Key="ReferenceInputBorderStyle"
+               TargetType="Border"
+               BasedOn="{StaticResource TransactionInputBorderStyle}">
+            <Style.Triggers>
+                <DataTrigger TargetType="Border"
+                             Binding="{Binding HasReferenceError}"
+                             Value="True">
+                    <Setter Property="Stroke" Value="#B91C1C" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="AmountInputBorderStyle"
+               TargetType="Border"
+               BasedOn="{StaticResource TransactionInputBorderStyle}">
+            <Style.Triggers>
+                <DataTrigger TargetType="Border"
+                             Binding="{Binding HasAmountError}"
+                             Value="True">
+                    <Setter Property="Stroke" Value="#B91C1C" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="ValidationErrorLabelStyle" TargetType="Label">
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="TextColor" Value="#B91C1C" />
+        </Style>
+        <Style x:Key="TransactionSubmitButtonStyle" TargetType="Button">
+            <Setter Property="TextColor" Value="White" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="FontAttributes" Value="Bold" />
+            <Setter Property="CornerRadius" Value="12" />
+            <Setter Property="MinimumHeightRequest" Value="48" />
+            <Setter Property="Padding" Value="10,12" />
+        </Style>
+        <Style x:Key="DepositButtonStyle"
+               TargetType="Button"
+               BasedOn="{StaticResource TransactionSubmitButtonStyle}">
+            <Setter Property="BackgroundColor" Value="#047857" />
+        </Style>
+        <Style x:Key="WithdrawalButtonStyle"
+               TargetType="Button"
+               BasedOn="{StaticResource TransactionSubmitButtonStyle}">
+            <Setter Property="BackgroundColor" Value="#B91C1C" />
+        </Style>
+    </views:BaseView.Resources>
+    <ScrollView>
+        <VerticalStackLayout Padding="20,18"
+                             Spacing="16">
+            <Border StrokeThickness="0"
+                    StrokeShape="RoundRectangle 20"
+                    Padding="22,20">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="#0F172A" Offset="0.0" />
+                        <GradientStop Color="#1E293B" Offset="0.5" />
+                        <GradientStop Color="#334155" Offset="1.0" />
+                    </LinearGradientBrush>
+                </Border.Background>
+
+                <VerticalStackLayout Spacing="16">
+                    <Grid ColumnDefinitions="*,Auto"
+                          ColumnSpacing="16">
+                        <VerticalStackLayout Spacing="4">
+                            <Label Text="ACCOUNT NUMBER"
+                                   FontSize="10"
+                                   FontAttributes="Bold"
+                                   TextColor="#94A3B8"
+                                   CharacterSpacing="1.0" />
+                            <Label Text="{Binding BankAccount.AccountNumber}"
+                                   FontSize="18"
+                                   FontAttributes="Bold"
+                                   TextColor="White"
+                                   CharacterSpacing="1.5"
+                                   LineBreakMode="TailTruncation" />
+                        </VerticalStackLayout>
+                        <VerticalStackLayout Grid.Column="1"
+                                             Spacing="4"
+                                             HorizontalOptions="End">
+                            <Label Text="CURRENT BALANCE"
+                                   FontSize="10"
+                                   FontAttributes="Bold"
+                                   TextColor="#94A3B8"
+                                   CharacterSpacing="1.0"
+                                   HorizontalTextAlignment="End" />
+                            <Label Text="{Binding BankAccount.Balance, StringFormat='{0:C2}'}"
+                                   FontSize="22"
+                                   FontAttributes="Bold"
+                                   TextColor="#34D399"
+                                   HorizontalTextAlignment="End" />
+                        </VerticalStackLayout>
+                    </Grid>
+                </VerticalStackLayout>
+            </Border>
+
+            <Label Text="Transaction Details"
+                   FontSize="18"
+                   FontAttributes="Bold"
+                   TextColor="#0F172A"
+                   Margin="4,2,4,0" />
+
+            <Border BackgroundColor="White"
+                    Stroke="#E2E8F0"
+                    StrokeThickness="1"
+                    StrokeShape="RoundRectangle 16"
+                    Padding="18">
+                <VerticalStackLayout Spacing="16">
+                    <VerticalStackLayout Spacing="6">
+                        <Label Text="REFERENCE"
+                               FontSize="10"
+                               FontAttributes="Bold"
+                               TextColor="#64748B"
+                               CharacterSpacing="1.0" />
+                        <Border Style="{StaticResource ReferenceInputBorderStyle}">
+                            <Entry Placeholder="e.g. Salary, Rent, Groceries"
+                                   Text="{Binding Reference}"
+                                   MaxLength="50"
+                                   FontSize="15"
+                                   TextColor="#0F172A"
+                                   PlaceholderColor="#94A3B8" />
+                        </Border>
+                        <Label Text="{Binding ReferenceError}"
+                               IsVisible="{Binding HasReferenceError}"
+                               Style="{StaticResource ValidationErrorLabelStyle}" />
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Spacing="6">
+                        <Label Text="AMOUNT"
+                               FontSize="10"
+                               FontAttributes="Bold"
+                               TextColor="#64748B"
+                               CharacterSpacing="1.0" />
+                        <Border Style="{StaticResource AmountInputBorderStyle}">
+                            <Entry Placeholder="0.00"
+                                   Text="{Binding Amount}"
+                                   Keyboard="Numeric"
+                                   MaxLength="12"
+                                   FontSize="18"
+                                   FontAttributes="Bold"
+                                   TextColor="#0F172A"
+                                   PlaceholderColor="#94A3B8">
+                                <Entry.Behaviors>
+                                    <behaviors:AmountInputBehavior />
+                                </Entry.Behaviors>
+                            </Entry>
+                        </Border>
+                        <Label Text="{Binding AmountError}"
+                               IsVisible="{Binding HasAmountError}"
+                               Style="{StaticResource ValidationErrorLabelStyle}" />
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
+            </Border>
+
+            <Button x:Name="SubmitButton"
+                    Text="{Binding SubmitButtonText}"
+                    Style="{StaticResource WithdrawalButtonStyle}"
+                    Margin="0,4,0,0"
+                    Command="{Binding SubmitCommand}">
+                <Button.Triggers>
+                    <DataTrigger TargetType="Button" Binding="{Binding IsDeposit}" Value="True">
+                        <Setter Property="Style" Value="{StaticResource DepositButtonStyle}" />
+                    </DataTrigger>
+                </Button.Triggers>
+            </Button>
+        </VerticalStackLayout>
+    </ScrollView>
+</views:BaseView>

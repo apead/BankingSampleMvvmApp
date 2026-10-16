@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<views:BaseView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:views="clr-namespace:BankingApp.Views"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:BankingApp.ViewModels"
+             xmlns:models="clr-namespace:BankingApp.Models"
+             x:DataType="vm:CustomerAccountsViewModel"
+             x:Class="BankingApp.Views.CustomerAccountsView"
+             Title="Future Lab Banking"
+             BackgroundColor="#F4F6FB">
+    <Grid RowDefinitions="Auto,*"
+          Padding="20,18">
+        <VerticalStackLayout Grid.Row="0"
+                             Spacing="16"
+                             Margin="0,0,0,14">
+
+            <Border StrokeThickness="0"
+                    StrokeShape="RoundRectangle 20"
+                    Padding="22,20">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="#0D1B2A" Offset="0.0" />
+                        <GradientStop Color="#1B263B" Offset="0.45" />
+                        <GradientStop Color="#415A77" Offset="1.0" />
+                    </LinearGradientBrush>
+                </Border.Background>
+
+                <VerticalStackLayout Spacing="16">
+                    <Grid ColumnDefinitions="*,Auto"
+                          VerticalOptions="Center">
+                        <HorizontalStackLayout Spacing="8"
+                                               VerticalOptions="Center">
+                            <Label Text="FUTURE LAB"
+                                   FontSize="13"
+                                   FontAttributes="Bold"
+                                   TextColor="#E0E1DD"
+                                   CharacterSpacing="2.0"
+                                   VerticalOptions="Center" />
+                            <Border BackgroundColor="#E0A96D"
+                                    StrokeThickness="0"
+                                    StrokeShape="RoundRectangle 4"
+                                    Padding="6,2"
+                                    VerticalOptions="Center">
+                                <Label Text="PLATINUM"
+                                       TextColor="#1B263B"
+                                       FontSize="8"
+                                       FontAttributes="Bold"
+                                       CharacterSpacing="0.8" />
+                            </Border>
+                        </HorizontalStackLayout>
+
+                        <HorizontalStackLayout Grid.Column="1"
+                                               Spacing="2"
+                                               VerticalOptions="Center">
+                            <Label Text="•)))"
+                                   FontSize="15"
+                                   FontAttributes="Bold"
+                                   TextColor="#E0E1DD"
+                                   Opacity="0.85" />
+                        </HorizontalStackLayout>
+                    </Grid>
+
+                    <Grid ColumnDefinitions="Auto,*"
+                          ColumnSpacing="14"
+                          VerticalOptions="Center">
+                        <Border WidthRequest="44"
+                                HeightRequest="32"
+                                StrokeShape="RoundRectangle 6"
+                                Stroke="#C8963E"
+                                StrokeThickness="1"
+                                Padding="3"
+                                VerticalOptions="Center">
+                            <Border.Background>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                    <GradientStop Color="#F3E5AB" Offset="0.0" />
+                                    <GradientStop Color="#D4AF37" Offset="0.5" />
+                                    <GradientStop Color="#AA771C" Offset="1.0" />
+                                </LinearGradientBrush>
+                            </Border.Background>
+                            <Grid RowDefinitions="*,*"
+                                  ColumnDefinitions="*,*">
+                                <BoxView Color="#8B6914" Opacity="0.35" Margin="1" />
+                                <BoxView Grid.Column="1" Color="#8B6914" Opacity="0.35" Margin="1" />
+                                <BoxView Grid.Row="1" Color="#8B6914" Opacity="0.35" Margin="1" />
+                                <BoxView Grid.Row="1" Grid.Column="1" Color="#8B6914" Opacity="0.35" Margin="1" />
+                            </Grid>
+                        </Border>
+
+                        <Label Grid.Column="1"
+                               Text="CUSTOMER IDENTIFICATION"
+                               FontSize="9"
+                               FontAttributes="Bold"
+                               TextColor="#778DA9"
+                               CharacterSpacing="1.2"
+                               VerticalOptions="Center" />
+                    </Grid>
+
+                    <VerticalStackLayout Spacing="3">
+                        <Label Text="ID NUMBER"
+                               FontSize="9"
+                               FontAttributes="Bold"
+                               TextColor="#778DA9"
+                               CharacterSpacing="1.0" />
+                        <Label Text="{Binding Customer.IdNumber, TargetNullValue='•••• •••• ••••'}"
+                               FontSize="18"
+                               FontAttributes="Bold"
+                               TextColor="#FFFFFF"
+                               CharacterSpacing="2.5" />
+                    </VerticalStackLayout>
+
+                    <Grid ColumnDefinitions="*,Auto,Auto"
+                          ColumnSpacing="12"
+                          VerticalOptions="End">
+                        <VerticalStackLayout Spacing="3">
+                            <Label Text="CUSTOMER-"
+                                   FontSize="8"
+                                   FontAttributes="Bold"
+                                   TextColor="#778DA9"
+                                   CharacterSpacing="1.0" />
+                            <Label Text="{Binding CustomerFullName}"
+                                   FontSize="15"
+                                   FontAttributes="Bold"
+                                   TextColor="#FFFFFF"
+                                   CharacterSpacing="0.8"
+                                   LineBreakMode="TailTruncation" />
+                        </VerticalStackLayout>
+
+                        <VerticalStackLayout Grid.Column="1"
+                                             Spacing="3"
+                                             HorizontalOptions="End">
+                            <Label Text="CONTACT"
+                                   FontSize="8"
+                                   FontAttributes="Bold"
+                                   TextColor="#778DA9"
+                                   CharacterSpacing="1.0"
+                                   HorizontalTextAlignment="End" />
+                            <Label Text="{Binding Customer.PhoneNumber, TargetNullValue='N/A'}"
+                                   FontSize="13"
+                                   FontAttributes="Bold"
+                                   TextColor="#E0E1DD"
+                                   HorizontalTextAlignment="End" />
+                        </VerticalStackLayout>
+
+                        <Grid Grid.Column="2"
+                              WidthRequest="34"
+                              HeightRequest="22"
+                              VerticalOptions="Center"
+                              Margin="4,0,0,0">
+                            <Ellipse WidthRequest="20"
+                                     HeightRequest="20"
+                                     Fill="#EB001B"
+                                     Opacity="0.85"
+                                     HorizontalOptions="Start" />
+                            <Ellipse WidthRequest="20"
+                                     HeightRequest="20"
+                                     Fill="#F79E1B"
+                                     Opacity="0.85"
+                                     HorizontalOptions="End" />
+                        </Grid>
+                    </Grid>
+                </VerticalStackLayout>
+            </Border>
+
+            <Grid ColumnDefinitions="*,Auto"
+                  ColumnSpacing="12"
+                  Margin="4,2,4,0"
+                  VerticalOptions="Center">
+                <VerticalStackLayout Spacing="2">
+                    <Label Text="Bank Accounts"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           TextColor="#0D1B2A" />
+                    <Label Text="Tap any account to inspect transaction history"
+                           FontSize="12"
+                           TextColor="#64748B" />
+                </VerticalStackLayout>
+
+                <Border Grid.Column="1"
+                        BackgroundColor="#E2E8F0"
+                        StrokeThickness="0"
+                        StrokeShape="RoundRectangle 12"
+                        Padding="12,5"
+                        VerticalOptions="Center">
+                    <Label Text="{Binding CustomerAccounts.Count, StringFormat='{0} accounts'}"
+                           FontSize="12"
+                           FontAttributes="Bold"
+                           TextColor="#1B263B" />
+                </Border>
+            </Grid>
+        </VerticalStackLayout>
+
+        <CollectionView Grid.Row="1"
+                        ItemsSource="{Binding CustomerAccounts}"
+                        SelectionMode="Single"
+                        SelectedItem="{Binding SelectedAccount}"
+                        SelectionChangedCommand="{Binding SelectAccountCommand}"
+                        ItemSizingStrategy="MeasureAllItems">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical"
+                                   ItemSpacing="12" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:BankAccount">
+                    <Border BackgroundColor="White"
+                            Stroke="#E5E5E5"
+                            StrokeThickness="1"
+                            StrokeShape="RoundRectangle 16"
+                            Padding="18">
+                        <VerticalStackLayout Spacing="14">
+                            <Grid ColumnDefinitions="*,Auto"
+                                  VerticalOptions="Center">
+                                <Label Text="{Binding AccountTypeDescription}"
+                                       TextColor="#333333"
+                                       FontSize="14"
+                                       FontAttributes="Bold"
+                                       VerticalOptions="Center" />
+                                <Label Grid.Column="1"
+                                       Text="→"
+                                       FontSize="18"
+                                       TextColor="#666666"
+                                       VerticalOptions="Center" />
+                            </Grid>
+
+                            <Grid ColumnDefinitions="*,Auto"
+                                  ColumnSpacing="16"
+                                  VerticalOptions="Center">
+                                <VerticalStackLayout Spacing="3">
+                                    <Label Text="ACCOUNT NUMBER"
+                                           FontSize="10"
+                                           FontAttributes="Bold"
+                                           TextColor="#666666"
+                                           CharacterSpacing="0.8" />
+                                    <Label Text="{Binding AccountNumber}"
+                                           FontSize="16"
+                                           FontAttributes="Bold"
+                                           TextColor="#222222"
+                                           LineBreakMode="TailTruncation" />
+                                </VerticalStackLayout>
+
+                                <VerticalStackLayout Grid.Column="1"
+                                                     Spacing="3"
+                                                     HorizontalOptions="End">
+                                    <Label Text="AVAILABLE BALANCE"
+                                           FontSize="10"
+                                           FontAttributes="Bold"
+                                           TextColor="#666666"
+                                           CharacterSpacing="0.8"
+                                           HorizontalTextAlignment="End" />
+                                    <Label Text="{Binding Balance, StringFormat='{0:C2}'}"
+                                           FontSize="18"
+                                           FontAttributes="Bold"
+                                           TextColor="#059669"
+                                           HorizontalTextAlignment="End" />
+                                </VerticalStackLayout>
+                            </Grid>
+                        </VerticalStackLayout>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+            <CollectionView.EmptyView>
+                <VerticalStackLayout Padding="24,48"
+                                     Spacing="8"
+                                     HorizontalOptions="Center"
+                                     VerticalOptions="Center">
+                    <Label Text="No accounts found"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           TextColor="#0F172A"
+                           HorizontalTextAlignment="Center" />
+                    <Label Text="There are no active accounts registered for this customer."
+                           FontSize="14"
+                           TextColor="#64748B"
+                           HorizontalTextAlignment="Center" />
+                </VerticalStackLayout>
+            </CollectionView.EmptyView>
+        </CollectionView>
+    </Grid>
+</views:BaseView>
