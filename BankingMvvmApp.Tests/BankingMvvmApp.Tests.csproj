@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
+    <PackageReference Include="xunit" Version="2.9.3" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="3.1.4">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Maui.Controls.Core" Version="10.0.110" />
+    <PackageReference Include="sqlite-net-pcl" Version="1.11.285" />
+  </ItemGroup>
+
+  <!-- Compile the actual application logic without building a platform-specific MAUI executable. -->
+  <ItemGroup>
+    <Compile Include="..\BankingMvvmApp\Commands\*.cs" Link="App\Commands\%(Filename)%(Extension)" />
+    <Compile Include="..\BankingMvvmApp\ViewModels\*.cs" Link="App\ViewModels\%(Filename)%(Extension)" />
+    <Compile Include="..\BankingMvvmApp\Models\*.cs" Link="App\Models\%(Filename)%(Extension)" />
+    <Compile Include="..\BankingMvvmApp\Enums\*.cs" Link="App\Enums\%(Filename)%(Extension)" />
+    <Compile Include="..\BankingMvvmApp\Services\IBankingDatabaseService.cs" Link="App\Services\IBankingDatabaseService.cs" />
+    <Compile Include="..\BankingMvvmApp\Services\INavigationService.cs" Link="App\Services\INavigationService.cs" />
+    <Compile Include="..\BankingMvvmApp\Services\IDialogService.cs" Link="App\Services\IDialogService.cs" />
+    <Using Include="Microsoft.Maui.Controls" />
+    <Using Include="Xunit" />
+  </ItemGroup>
+</Project>

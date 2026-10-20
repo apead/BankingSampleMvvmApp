@@ -137,6 +137,32 @@ To build for Android:
 dotnet build .\BankingMvvmApp.csproj -f net10.0-android
 ```
 
+## Unit tests
+
+The solution includes a separate `BankingMvvmApp.Tests` xUnit project with simple
+Arrange-Act-Assert tests and hand-written fake database, navigation, and dialog
+services. No mocking framework, device, running app, or real database is needed.
+
+The tests cover required fields, invalid amounts, insufficient funds, confirmed
+and cancelled transactions, database failures, property notifications, customer
+and account loading, navigation, and asynchronous command execution.
+
+Run from the solution directory:
+
+```powershell
+dotnet test .\BankingMvvmApp.Tests\BankingMvvmApp.Tests.csproj
+```
+
+The test project targets plain `net10.0` and links the application's actual
+commands, view models, models, and service interfaces as source files. This avoids
+changing the application's platform targets or introducing another production
+project just for this sample. It references MAUI Controls Core for the real
+`IQueryAttributable` interface and sqlite-net-pcl for the models' mapping attributes;
+it does not substitute framework types or open SQLite connections.
+
+These are unit tests of application logic, not tests of XAML bindings, native
+controls, Shell navigation itself, or database persistence.
+
 ## Educational limitations
 
 This sample is intended to teach code organization, data binding, property notifications, commands, dependency injection, and local persistence. It is **not suitable for production banking**.
